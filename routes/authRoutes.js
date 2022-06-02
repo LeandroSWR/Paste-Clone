@@ -1,4 +1,5 @@
 const passport = require('passport');
+const connection = require('../services/database');
 const isAuth = require('../services/middleware');
 
 module.exports = app => {
@@ -11,6 +12,7 @@ module.exports = app => {
         res.render('index', {
             date_tag: date,
             message_tag: 'Access your Google Account',
+            status: req
         });
     });
 
@@ -23,13 +25,14 @@ module.exports = app => {
         console.log('Session expires in:', req.session.cookie.maxAge / 1000);
         res.render('success', {
             message: 'Authorization Successful!',
-            user: req.user
+            status: req
         });
     });
 
     app.get('/resource', isAuth(), (req, res, next) => {
         res.render('resource', {
-            authenticated: req.isAuthenticated()
+            authenticated: req.isAuthenticated(),
+            status: req
         });
     });
 

@@ -1,9 +1,9 @@
 <%- include('head'); -%>
   <main>
-    <div class="jumbotron">
+    <div class="jumbotron" style="background-color: #252525;">
       <p class="lead"><i class="fa fa-user" aria-hidden="true"></i>
         Authentication Status</p>
-      <hr class="my-4">
+      <hr class="my-4" style="background-color: #303030; height: 2px;">
       <% if (status.isAuthenticated()) { %>
         <p> User <%= status.user.displayName %> is authenticated</p>
         <p> Session expires in <%= status.session.cookie.maxAge / 1000 %> seconds</p>

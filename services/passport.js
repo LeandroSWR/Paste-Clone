@@ -2,6 +2,8 @@
 require('dotenv').config();
 
 const passport = require('passport');
+const connection = require('./database');
+const User = connection.models.User;
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 /*
@@ -11,26 +13,21 @@ var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
  * Here, since no database is used, the full user profile has to be stored in the session.
  */
 passport.serializeUser((user, done) => {
-    // Serialize a shorter version of the user profile
-    const User = {
-        id: user.id,
-        displayName: user.displayName,
-        emails: user.emails,
-    };
-    console.log('Serialiazing user:', User);
-    done(null, User);
+    console.log('Serialiazing user:', user);
+    done(null, user._id);
 });
 
 /*
 * On each new access, retrieve the user profile from the session and provide it as req.user
 * so that routes detect if there is a valid user context. 
 */
-passport.deserializeUser((user, done) => {
-    done(null, user);
+passport.deserializeUser(async (id, done) => {
+    User.findById(id, (err, user) => {
+        done(err, user);
+    });
 });
 
 /*  Google AUTH  */
-
 passport.use(
     new GoogleStrategy(
         // Strategy Parameters
@@ -47,7 +44,25 @@ passport.use(
             // console.log('Access Token:', accessToken);
             // console.log('Refresh Token:', refreshToken);
             // console.log('User profile:', profile._json);
+
+            User.findOne({googleID: profile.id}).then((user) => {
+                if (!user) { 
+                    const newUser = new User({
+                        googleID: profile.id,
+                        displayName: profile.displayName,
+                        emails: profile.emails
+                    });
+                    newUser.save()
+                        .then((user) => {
+                            console.log('Registered user:', user);
+                        });
+
+                    return done(null, newUser);
+                }
+
+                return done(null, user);
+            });
+
             console.log('OAuth2 params:', params);
-            return done(null, profile);
         }
     ));

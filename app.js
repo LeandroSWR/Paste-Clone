@@ -12,7 +12,10 @@ require('./services/passport');
 // const {port, https, certs} = require('./services/https');
 require('./services/server');
 /*  VIEW ENGINE */
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
+app.use(express.static('public'));
 
 const dbString = process.env.DB_STRING;
 const dbOptions = {
@@ -37,6 +40,8 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 require('./routes/authRoutes')(app);
+app.use(express.Router(), require('./routes/itemRoutes'));
+
 
 // Create the server according to environment
 createServer(app);

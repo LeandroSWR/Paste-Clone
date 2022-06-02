@@ -1,11 +1,17 @@
 <%- include('head'); -%>
 <main>
-    <div class="jumbotron">
-        <p class="lead">Access your Google Profile</p>
-        <hr class="my-4">
+    <div class="jumbotron" style="background-color: #252525;" >
+        <% if (status.isAuthenticated()) { %>
+            <p class="lead">Welcome, <%= status.user.displayName %></p>
+            <% } else { %>
+                <p class="lead">Access your Google Profile</p>
+        <% } %>
+        
+        <hr class="my-4" style="background-color: #303030; height: 2px;">
         <p>Current Date: <%= date_tag %></p>
-        <p><%= message_tag %></p>
-        <a class="btn btn-primary" href="/login" role="button"><span class="fa fa-google"></span> Login</a>
+        <% if (!status.isAuthenticated()) { %>
+            <a class="btn btn-primary" href="/login" role="button"><span class="fa fa-google"></span> Login</a>
+        <% } %>
     </div>
 </main>
 <%- include('foot'); -%>

@@ -1,0 +1,55 @@
+<%- include('head'); -%>
+    <main>
+        <div class="jumbotron" style="background-color: #252525;">
+            <p class="lead"><i class="fa fa-folder-open" aria-hidden="true"></i>
+            Available Items</p>
+            <hr class="my-4" style="background-color: #303030; height: 2px;">
+            <% if (!status.isAuthenticated() && itemList.length != 0) { %>
+                <!-- If not say he's not authenticated and display only public items --> 
+                <p> You're not authenticated... Showing only public items. </p>
+                <a class="btn btn-primary" href="/login" role="button"><span class="fa fa-google"></span> Login</a>
+                </br>
+            <% } else if (status.isAuthenticated() && itemList.length != 0) { %>
+                <!-- If the user is authenticated show both public and the user's items -->
+                <p> Welcome. Showing all of your's/public items! </p>
+                </br>
+            <% } %> 
+            <% if (itemList.length != 0) { %>
+
+                <table class="table">
+                    <thead >
+                        <tr>
+                            <th> Title </th>
+                            <th> Author </th>
+                            <th> Date </th>
+                            <th> Status </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% itemList.forEach(item => { %>
+                            <tr>
+                                <td><a href="/item/<%= item._id %> " style="color:dodgerblue"><%= item.title %></a> </td>
+                                <td> <%= item.author %> </td>
+                                <td> <%= item.createdAt.toGMTString(); %> </td>
+                                <td> <span class="dash-status"><%= item.status %></span></td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            <% } else if (status.isAuthenticated()) { %>
+                <!-- Tell the user he doesn't have any items -->
+                <p> You don't have any items yet. </p>
+            <% } else { %>
+                <!-- Tell the user that there's no public items available -->
+                <p> There's no public items available. </p>
+            <% } %>
+
+            <div class="btn-lg">
+                <a href="/create" class="btn-floating btn-large waves-effect waves-light red">
+                    <i class="fa fa-plus-circle"></i><a style="color: azure;"> Add a new Item!</a>
+                </a>
+            </div>
+            
+        </div>
+    </main>
+  <%- include('foot'); -%>

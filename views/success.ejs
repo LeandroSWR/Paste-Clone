@@ -1,13 +1,13 @@
 <%- include('head'); -%>
 <main>
-  <div class="jumbotron">
+  <div class="jumbotron" style="background-color: #252525;">
       <p class="lead"><i class="fa fa-user" aria-hidden="true"></i>
         Google Profile Information</p>
-      <hr class="my-4">
+      <hr class="my-4" style="background-color: #303030; height: 2px;">
       <p><%= message %></p>
-      <p>Google_Id: <%= user.id  %></p>
-      <p>Name: <%= user.displayName %></p>
-      <p>Email Address: <%= user.emails[0].value %></p>
+      <p>Google_Id: <%= status.user.id  %></p>
+      <p>Name: <%= status.user.displayName %></p>
+      <p>Email Address: <%= status.user.emails[0].value %></p>
   </div>
 </main>
 <%- include('foot'); -%>
