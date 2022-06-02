@@ -3,13 +3,13 @@
         <script>hljs.highlightAll();</script>
         <div class="jumbotron" style="background-color: #252525;">
             <p class="lead"><i class="fa fa-folder-open" aria-hidden="true"></i>
-            Available Items</p>
+            Available Pastes</p>
             <hr class="my-4" style="background-color: #303030; height: 2px;">
             <% if (status.isAuthenticated()) { %>
-                <!-- If user is authenticated display his items -->
+                <!-- If user is authenticated display his pastes -->
                 <p> User: <%= status.user.displayName %></p> 
             <% } else { %>
-                <!-- If not say he's not authenticated and display only public items --> 
+                <!-- If not say he's not authenticated and display only public pastes --> 
                 <p>You're not authenticated... To post of view your private files please login.</p>
                 <a class="btn btn-primary" href="/login" role="button">
                     <span class="fa fa-google"></span>
@@ -19,16 +19,16 @@
             <% } %>
             <div class="row">
                 <div class="col s12 m8">
-                    <h3> <%= item.title %> </h3>
+                    <h3> <%= paste.title %> </h3>
                 <div class="card">
                         <div style="margin-left: 10px;">
                             <div class="small">
                                 <a>
-                                    Posted on <%= item.createdAt.toGMTString(); %> by <%= item.author %> 
+                                    Posted on <%= paste.createdAt.toGMTString(); %> by <%= paste.author %> 
                                 </a>
                                 <div class="language">
                                     <a>
-                                        <%= item.type %>
+                                        <%= paste.type %>
                                     </a>
                                 </div>
                                 
@@ -36,9 +36,9 @@
                             
                             <div class="wrapper" style="max-width: 100%;">
                                 <ol>
-                                    <% item.abstract.split('\n').forEach(line => { %> 
+                                    <% paste.abstract.split('\n').forEach(line => { %> 
                                         <li>
-                                            <pre><code class="language-<%= item.type %>" id="code-display"><%= line %></code></pre>
+                                            <pre><code class="language-<%= paste.type %>" id="code-display"><%= line %></code></pre>
                                         </li>
                                     <% }); %> 
                                 </ol>

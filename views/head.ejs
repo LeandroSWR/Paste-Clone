@@ -5,7 +5,7 @@
   <!-- views/partials/head.ejs -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Plain Paste</title>
+  <title>Paste Clone</title>
 
   <!-- CSS Stuff (Bootstrap/FontAwesome/CodeHighlightTheme/Styles) -->
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -21,7 +21,7 @@
 <header>
   <!-- views/partials/header.ejs -->
   <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #252525;">
-    <a class="navbar-brand" href="#"><i class="fa fa-file-text-o" aria-hidden="true"></i> Plain Paste</a>
+    <a class="navbar-brand" href="#"><i class="fa fa-file-text-o" aria-hidden="true"></i> Paste Clone</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -30,14 +30,14 @@
       <div class="navbar-nav">
         <a class="nav-item nav-link" href="/">Home <span class="sr-only">(current)</span></a>
         <a class="nav-item nav-link" href="/status">Status</a>
-        <a class="nav-item nav-link" href="/item">Items</a>
+        <a class="nav-item nav-link" href="/pastes">Pastes</a>
         <a class="nav-item nav-link" href="/resource">Resource</a>
       </div>
     </div>
     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
       <ul class="navbar-nav ml-auto">
         <% if (status.isAuthenticated()) { %>
-          <!-- If user is authenticated display his items -->
+          <!-- If user is authenticated display his pastes -->
           <a class="nav-item nav-link" > Welcome, <%= status.user.displayName %>,
             <a class="nav-item nav-link" href="/logout">Logout</a>
           </a> 

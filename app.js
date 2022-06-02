@@ -40,7 +40,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 require('./routes/authRoutes')(app);
-app.use(express.Router(), require('./routes/itemRoutes'));
+app.use(express.Router(), require('./routes/pasteRoutes'));
 
 
 // Create the server according to environment

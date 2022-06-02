@@ -1,0 +1,55 @@
+<%- include('head'); -%>
+    <main>
+        <div class="jumbotron" style="background-color: #252525;">
+            <p class="lead"><i class="fa fa-folder-open" aria-hidden="true"></i>
+            Available Pastes</p>
+            <hr class="my-4" style="background-color: #303030; height: 2px;">
+            <% if (!status.isAuthenticated() && pasteList.length != 0) { %>
+                <!-- If not say he's not authenticated and display only public pastes --> 
+                <p> You're not authenticated... Showing only public pastes. </p>
+                <a class="btn btn-primary" href="/login" role="button"><span class="fa fa-google"></span> Login</a>
+                </br>
+            <% } else if (status.isAuthenticated() && pasteList.length != 0) { %>
+                <!-- If the user is authenticated show both public and the user's pastes -->
+                <p> Welcome. Showing all of your's/public pastes! </p>
+                </br>
+            <% } %> 
+            <% if (pasteList.length != 0) { %>
+
+                <table class="table">
+                    <thead >
+                        <tr>
+                            <th> Title </th>
+                            <th> Author </th>
+                            <th> Date </th>
+                            <th> Status </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% pasteList.forEach(paste => { %>
+                            <tr>
+                                <td><a href="/pastes/<%= paste._id %> " style="color:dodgerblue"><%= paste.title %></a> </td>
+                                <td> <%= paste.author %> </td>
+                                <td> <%= paste.createdAt.toGMTString(); %> </td>
+                                <td> <span class="dash-status"><%= paste.status %></span></td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            <% } else if (status.isAuthenticated()) { %>
+                <!-- Tell the user he doesn't have any pastes -->
+                <p> You don't have any pastes yet. </p>
+            <% } else { %>
+                <!-- Tell the user that there's no public pastes available -->
+                <p> There's no public pastes available. </p>
+            <% } %>
+
+            <div class="btn-lg">
+                <a href="/create" class="btn-floating btn-large waves-effect waves-light red">
+                    <i class="fa fa-plus-circle"></i><a style="color: azure;"> Add a new Paste!</a>
+                </a>
+            </div>
+            
+        </div>
+    </main>
+  <%- include('foot'); -%>

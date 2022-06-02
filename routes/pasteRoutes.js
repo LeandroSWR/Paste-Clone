@@ -2,36 +2,36 @@ const express = require('express');
 const router = express.Router();
 const connection = require('../services/database');
 const isAuth = require('../services/middleware');
-const Item = connection.models.Item;
+const Paste = connection.models.Paste;
 const hljs = require('highlight.js');
 
-router.get('/item', function isAuth (req, res, next) { next(); }, async (req, res) => {
-    var items = null;
+router.get('/pastes', function isAuth (req, res, next) { next(); }, async (req, res) => {
+    var pastes = null;
     // If the user is authenticated
     if (req.isAuthenticated()) {
-        // Show all his items and all public items
-        // Get's all items that are either public of belong to the user
-        items = await Item.find({$or:[{owner: req.user._id}, {status: 'public'}]});
+        // Show all his pastes and all public pastes
+        // Get's all pastes that are either public of belong to the user
+        pastes = await Paste.find({$or:[{owner: req.user._id}, {status: 'public'}]});
     }
     // If not
     else {
-        // Only show public items
-        items = await Item.find({ status: 'public' }).lean();
+        // Only show public pastes
+        pastes = await Paste.find({ status: 'public' }).lean();
     }
 
-    res.render('item', {
+    res.render('pastes', {
         status: req,
-        itemList: items
+        pasteList: pastes
     });
 });
 
-router.get('/item/:id', function isAuth (req, res, next) { next(); }, async (req, res) => {
+router.get('/pastes/:id', function isAuth (req, res, next) { next(); }, async (req, res) => {
 
-    const item = await Item.findById(req.params.id);
+    const paste = await Paste.findById(req.params.id);
 
     res.render('display', {
         status: req,
-        item: item
+        paste: paste
     });
 });
 
@@ -47,12 +47,12 @@ router.post('/create', isAuth(), async (req, res) => {
     try {
         req.body.author = req.user.displayName;
         req.body.owner = req.user._id;
-        await Item.create(req.body);
-        res.redirect('/item');
+        await Paste.create(req.body);
+        res.redirect('/pastes');
     } catch (err) {
         console.error(err);
         res.render('error', {
-            message_tag: 'Could not create item..'
+            message_tag: 'Could not create paste..'
         });
     }
 });

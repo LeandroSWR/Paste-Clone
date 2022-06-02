@@ -22,8 +22,8 @@ const UserSchema = new mongoose.Schema({
     emails: Array
 });
 
-// Creates a simple schema for a Item
-const ItemSchema = new mongoose.Schema({
+// Creates a simple schema for a paste
+const PasteSchema = new mongoose.Schema({
     owner: {
         type: ObjectId,
         ref: 'User'
@@ -49,7 +49,7 @@ const ItemSchema = new mongoose.Schema({
     }
 });
 
-const Item = connection.model('Item', ItemSchema);
+const Paste = connection.model('Paste', PasteSchema);
 
 const User = connection.model('User', UserSchema);
 
