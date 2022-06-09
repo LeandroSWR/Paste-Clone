@@ -12,7 +12,7 @@ router.get('/pastes', function f (req, res, next) { next(); }, async (req, res) 
     // If the user is authenticated
     if (req.isAuthenticated()) {
         // Show all his pastes and all public pastes
-        // Get's all pastes that are either public of belong to the user
+        // Get's all pastes that are either public or belong to the user
         pastes = await Paste.find({$or:[{owner: req.user.googleID}, {status: 'public'}]});
     }
     // If not
