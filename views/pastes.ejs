@@ -22,7 +22,8 @@
                             <th> Title </th>
                             <th> Author </th>
                             <th> Date </th>
-                            <th> Status </th>
+                            <th style="text-align: center;"> Status </th>
+                            <th style="width: 10px; padding: 0;"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -31,7 +32,21 @@
                                 <td><a href="/pastes/<%= paste._id %> " style="color:dodgerblue"><%= paste.title %></a> </td>
                                 <td> <%= paste.author %> </td>
                                 <td> <%= paste.createdAt.toGMTString(); %> </td>
-                                <td> <span class="dash-status"><%= paste.status %></span></td>
+                                <td style="text-align: center;">
+                                    <span class="dash-status"><%= paste.status %></span>
+                                </td>
+                                <td style="padding-left: 0; padding-right: 0;">
+                                    <% if (status.isAuthenticated() && paste.owner == status.user.googleID) { %>
+                                        <div>
+                                            <a href="/edit/<%= paste._id %>" class="btn-floating">
+                                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                            </a>
+                                            <form method="POST" action="/delete/<%= paste._id %>">
+                                                <input class="delete" type="submit" value="&#xf014" class="btn-floating">
+                                            </form>
+                                        </div>
+                                    <% } %>
+                                </td>
                             </tr>
                         <% }); %>
                     </tbody>

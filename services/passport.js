@@ -41,9 +41,6 @@ passport.use(
         },
         // Verify callback
         (accessToken, refreshToken, params, profile, done) => {
-            // console.log('Access Token:', accessToken);
-            // console.log('Refresh Token:', refreshToken);
-            // console.log('User profile:', profile._json);
 
             User.findOne({googleID: profile.id}).then((user) => {
                 if (!user) { 

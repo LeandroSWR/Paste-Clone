@@ -2,8 +2,18 @@
     <main>
         <script>hljs.highlightAll();</script>
         <div class="jumbotron" style="background-color: #252525;">
-            <p class="lead"><i class="fa fa-folder-open" aria-hidden="true"></i>
-            Available Pastes</p>
+            <div style="display:-webkit-flex; display:flex; list-style-type:none; padding:0; justify-content:flex-end; margin-top: -18px;">
+                <a class="lead" style="margin-right: auto;">
+                    <i class="fa fa-folder-open" aria-hidden="true"></i>
+                    Available Pastes
+                </a>
+                <% if (status.isAuthenticated() && paste.owner == status.user.googleID) { %>
+                <form method="POST" action="/delete/<%= paste._id %>">
+                    <input style="font-size: 1.8em; padding: 0; margin-right: 10px; margin-top: 2px;" class="delete" type="submit" value="&#xf014" class="btn-floating">
+                </form>
+                <% } %> 
+            </div>
+            
             <hr class="my-4" style="background-color: #303030; height: 2px;">
             <% if (status.isAuthenticated()) { %>
                 <!-- If user is authenticated display his pastes -->

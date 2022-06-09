@@ -7,13 +7,13 @@ const MongoStore = require('connect-mongo');
 
 const passport = require('passport');
 const { createServer } = require('./services/server');
-require('./services/passport');
 
-// const {port, https, certs} = require('./services/https');
+require('./services/passport');
 require('./services/server');
-/*  VIEW ENGINE */
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+/*  VIEW ENGINE */
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 

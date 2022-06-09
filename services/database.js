@@ -24,10 +24,7 @@ const UserSchema = new mongoose.Schema({
 
 // Creates a simple schema for a paste
 const PasteSchema = new mongoose.Schema({
-    owner: {
-        type: ObjectId,
-        ref: 'User'
-    },
+    owner: String,
     title: String,
     author: {
         type: String,

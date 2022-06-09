@@ -31,6 +31,7 @@ small {
 }
 
 .language {
+    display: ;
     width:100%;
     text-align: right;
 }
@@ -51,6 +52,21 @@ ol li::marker {
     margin: 0;
 }
 
+/* Css for the delete icon */
+.delete {
+    font-family: FontAwesome; 
+    padding: 0; 
+    background-color: transparent; 
+    border: none;
+    color: #007bff;
+}
+
+.delete:hover {
+    color: #0056B3;
+}
+/* Css for the delete icon */
+
+/* Css for changing the background color on code display on mousehover */
 #code-display:hover {
     background-color: #363636;
 }
@@ -63,3 +79,4 @@ ol li::marker {
     overflow: auto;
     white-space: pre-wrap;
 }
+/* Css for changing the background color on code display on mousehover */

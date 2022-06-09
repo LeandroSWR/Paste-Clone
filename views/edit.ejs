@@ -1,0 +1,82 @@
+<%- include('head'); -%>
+<div class="jumbotron" style="background-color: #252525;">
+    <div style="display:-webkit-flex; display:flex; list-style-type:none; padding:0; justify-content:flex-end; margin-top: -18px;">
+        <a class="lead" style="margin-right: auto; margin-top: 15px;"><i class="fa fa-book" aria-hidden="true"></i>
+            Edit Paste
+        </a>
+        <form method="POST" action="/delete/<%= paste._id %>">
+            <input style="font-size: 1.8em; padding: 0; margin-right: 10px; margin-top: 2px;" class="delete" type="submit" value="&#xf014" class="btn-floating">
+        </form>
+    </div>
+    
+    <hr class="my-4" style="background-color: #303030; height: 2px;">
+    <div class="row">
+        <form method="POST" action="/edit/<%= paste._id %> " class="col s12" style="margin-left: 1.8%;">
+            <div class="row">
+                <div class="input-field">
+                    <label for="title">Title <a style="margin-left: 43px; border-right:2px solid #303030;"></a></label>
+                    <input type="text" id="title" name="title" value="<%= paste.title %>"
+                        style="margin-left: 20px; 
+                            background-color: #2b2b2b; 
+                            border-color: #3a3a3a; 
+                            border-width: 1px; 
+                            border-style: solid;
+                            color: azure;">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field">
+                    <label for="status">Status <a style="margin-left: 30px; border-right:2px solid #303030; "></a></label>
+                    <select id="status" name="status" 
+                    style="margin-left: 20px; 
+                        border-color: #3a3a3a; 
+                        color: azure;
+                        border-style: solid;
+                        border-width: 2px; 
+                        background-color: #2B2B2B;">
+                        <option value="private" selected style="color: azure;">Private</option>
+                        <option value="public" style="color: azure;">Public</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field">
+                    <label for="status">Type <a style="margin-left: 40px; border-right:2px solid #303030; "></a></label>
+                    <select id="type" name="type" 
+                    style="margin-left: 20px; 
+                        border-color: #3a3a3a; 
+                        color: azure;
+                        border-style: solid;
+                        border-width: 2px; 
+                        background-color: #2B2B2B;">
+                        <% languages.forEach(language => { %> 
+                        <option value="<%= language %>" <% if (language == paste.type) { %> selected <% } %> style="color: azure;">
+                            <%= language.charAt(0).toUpperCase() + language.slice(1); %>
+                        </option>
+                        <% }); %> 
+                    </select>
+                </div>
+            </div>
+
+            </br>
+            <h5 class="row">Edit Paste</h5>
+            <textarea id="abstract" name="abstract" class="row"
+            style="resize: none; 
+                background-color: #2B2B2B;
+                height: 299.533px;
+                width: 100%;
+                border-color: #3a3a3a; 
+                border-style: solid;
+                color: azure;
+                border-width: 1px;"><%= paste.abstract %></textarea>
+            </br>
+            <div class="row">
+                <input type="submit" value="Save" class="btn btn-success">
+                <a href="/pastes" class="btn btn-danger" style="margin-left: 20px;">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+<%- include('foot'); -%>
